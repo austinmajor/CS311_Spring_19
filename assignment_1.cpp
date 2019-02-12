@@ -32,5 +32,8 @@ int main()
 	int number = count;
 	for (int i = 0; i >= number; i++)
 		cout << arrayA[i] << endl;
-    
+
+	cin.get();
+
+	return 0;
 }
