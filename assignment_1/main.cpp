@@ -1,27 +1,3 @@
-/*
-Assignment 1
-This assignment is adopted from Project Euler Question 13. 
-
-Requirement
-- use file for the input (nums.txt)
-- use int array(s) (size: 55) to hold each digit from each num.
-- store the num reversely in the array. For example, the num 123 is stored as 3 (at index 0), 2 (at index 1) and 1 (at index 2) in the array. 
-- write a function that performs the addition of numbers. This function will be called in the main. 
-- write a function that prints out the answer. The answer includes two parts: the total summation and the first 10 digits of the summation. 
-- comment the code clearly, especially for the number addition mechanism. 
-
-Grading
-- compilable and meaningful attemps: 30 points. That is, the code must be compilable while it cannot be just a compilable hello world. 
-- functionality: 40 points. (file, string number handling, array and addition mechanism, answer printing)
-- comment & indentation: 10 points. 
-- explanation to lab TA: 20 points. You need to explain the array and addition mechanism to one of the lab TAs, either in the lab time, in their office hours or setup an appointment. 
-- Total score: 30 + 40 + 10 + 20 = 100 points. 
-
-Submission:
-- due: feb 15, 11:59pm
-- please submit through handin program.
-*/
-
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -42,23 +18,26 @@ int main()
 		exit(-1);
 	}
 
-	string string;
+	string str;
 	while (!inputFile.eof())
 	{
-		inputFile >> string;
+		getline(inputFile, str);
 	}
 
-	cout << string << endl;
+	cout << str << endl;
 
 	// get length of string str
-	int sl = string.length();
+	int sl = str.length();
 
-	int i, sum = 0;
+	int j = sl, i, sum = 0;
 
-	// Traverse the string
-	for (i = 0; string[i] != '\0'; i++)
+	// traverse the string in reverse
+	for (i = 0; str[i] != '\0'; i++)
 	{
-		array[i] = array[i] * 10 + (string[i] - 48);
+		j--;
+		// subtract string[i] by 48 to convert it to int
+		// the character 1 in ascii is 48 in decimal
+		array[j] = (str[i] - 48);
 	}
 
 	for (i = 0; i < sl; i++)
@@ -72,3 +51,29 @@ int main()
 
 	return 0;
 }
+
+// #include <iostream>
+// #include <string>
+// #include <vector>
+// #include <cstdlib>
+// #include <fstream>
+// #include <numeric>
+
+// using namespace std;
+
+// int main() {
+//     const string file = "nums.txt";
+//     ifstream in(file.c_str());
+//     if (!in) {
+//         cout << endl << "Error reading " << file << endl;
+//         exit(EXIT_FAILURE);
+//     }
+//     vector<string> nums;
+//     for (string s; getline(in,s); ) {
+//         nums.push_back(s);
+//     }
+//     cout << endl;
+//     for (size_t i = 0; i < nums.size(); i++) {
+//         cout << nums.at(i) << endl;
+//     }
+// }
