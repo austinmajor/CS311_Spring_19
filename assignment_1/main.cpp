@@ -29,7 +29,7 @@ int main()
 	// get length of string str
 	int sl = str.length();
 
-	int j = sl, i, sum = 0;
+	int j = sl, i, answer = 0;
 
 	// traverse the string in reverse
 	for (i = 0; str[i] != '\0'; i++)
@@ -43,11 +43,11 @@ int main()
 	for (i = 0; i < sl; i++)
 	{
 		cout << array[i] << "";
-		sum += array[i]; // sum of array
+		answer += array[i]; // answer of array
 	}
 
-	// print sum of array
-	cout << "\nSum of array is = " << sum << endl;
+	// print answer of array
+	cout << "\nSum of array is = " << answer << endl;
 
 	return 0;
 }

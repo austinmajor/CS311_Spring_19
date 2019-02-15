@@ -15,8 +15,8 @@ string sum_no(string a ,string b)
 
   int i = 0 , j = 0 , carry = 0;
 
-  cout << "l1: " << l1 << endl;
-  cout << "l2: " << l2 << endl; 
+  // cout << "l1: " << l1 << endl;
+  // cout << "l2: " << l2 << endl; 
 
   while(i < l1 || j < l2) // start i from a and j from b
   {
@@ -52,6 +52,8 @@ string sum_no(string a ,string b)
 
 int main()
 {
+  int array[55] = { 0 };
+
   freopen("nums.txt", "r", stdin);
 
   int count = 100;
@@ -69,6 +71,39 @@ int main()
 
   cout << sum << endl;
   cout << sum.substr(0,10) << endl;
+
+  // get length of string sum
+	int sl = sum.length();
+
+  cout << "length: " << sl << endl;
+
+	int j = sl, i; 
+  
+  // int answer = 0;
+
+	// traverse the string in reverse
+	for (i = 0; sum[i] != '\0'; i++)
+	{
+		j--;
+		// subtract string[i] by 48 to convert it to int
+		// the character 1 in ascii is 48 in decimal
+		array[j] = (sum[i] - 48);
+	}
+
+	// for (i = 0; i < sl; i++)
+	// {
+	// 	cout << array[i] << "";
+	// 	// answer += array[i]; // answer of array
+	// }
+
+  for (i = sl - 2; i >= 0; i--)
+	{
+		cout << array[i] << "";
+	}
+
+	// // print answer of array
+	// cout << "\nSum of array is = " << answer << endl;
+  cout << endl;
 
   return 0;
 }
