@@ -6,6 +6,7 @@ Date: 2/15/19
 */
 
 #include <iostream>
+#include <algorithm>
 #include <string>
 
 using namespace std;
