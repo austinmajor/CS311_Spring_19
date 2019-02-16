@@ -3,14 +3,52 @@
 
 using namespace std;
 
-void add(int a[], int size, int b[], int size2);
+string add(string, string);
+void print(string);
 
-void add(int a[], int size, int b[], int size2)
+void print(string a)
 {
+  int array[55] = { 0 };
 
-};
+  string answer = a;
 
-string sum_no(string a, string b)
+ // get length of string answer
+	int sl = answer.length();
+
+	int j = sl, i; 
+
+	// traverse the string in reverse
+	for (i = 0; answer[i] != '\0'; i++)
+	{
+		j--;
+		// subtract string[i] by 48 to convert it to int
+		// the character 1 in ascii is 48 in decimal
+		array[j] = (answer[i] - 48);
+	}
+
+  // the answer
+  cout << "The sum is: ";
+
+  for (i = sl - 1; i >= 0; i--)
+	{
+		cout << array[i] << "";
+	}
+
+  cout << endl;
+
+  // the first ten digits of the answer
+  cout << "The first ten digits of the sum is: ";
+
+  for (i = sl - 1; i >= sl - 10; i--)
+	{
+		cout << array[i] << "";
+	}
+
+  cout << endl;
+
+}
+
+string add(string a, string b)
 {
   string sum = "";
 
@@ -56,8 +94,6 @@ string sum_no(string a, string b)
 
 int main()
 {
-  int array[55] = { 0 };
-
   freopen("nums.txt", "r", stdin);
 
   int count = 100;
@@ -66,44 +102,11 @@ int main()
 
   while(count--)
   {
-    cin >> sum;    // FIX THIS!!!
-    cout << sum << endl;
-    answer = sum_no(answer,sum);
+    cin >> sum;
+    answer = add(answer,sum);
   }
 
-  // get length of string answer
-	int sl = answer.length();
-
-	int j = sl, i; 
-
-	// traverse the string in reverse
-	for (i = 0; answer[i] != '\0'; i++)
-	{
-		j--;
-		// subtract string[i] by 48 to convert it to int
-		// the character 1 in ascii is 48 in decimal
-		array[j] = (answer[i] - 48);
-	}
-
-  // the answer
-  cout << "The sum is: ";
-
-  for (i = sl - 1; i >= 0; i--)
-	{
-		cout << array[i] << "";
-	}
-
-  cout << endl;
-
-  // the first ten digits of the answer
-  cout << "The first ten digits of the sum is: ";
-
-  for (i = sl - 1; i >= sl - 10; i--)
-	{
-		cout << array[i] << "";
-	}
-
-  cout << endl;
+  print(answer);
 
   return 0;
 }
