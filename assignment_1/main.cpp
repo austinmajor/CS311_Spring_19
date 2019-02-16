@@ -95,7 +95,8 @@ string add(string a, string b)
 
   if(carry > 0) // if carrry is greater than 0 add it to sum
     sum = sum + to_string(carry);
-    reverse(sum.begin(),sum.end()); // reverse the sum
+
+  reverse(sum.begin(),sum.end()); // reverse the sum
 
   return sum; // return sum
 }
