@@ -3,38 +3,42 @@
 
 using namespace std;
 
-string sum_no(string a ,string b)
+void add(int a[], int size, int b[], int size2);
+
+void add(int a[], int size, int b[], int size2)
+{
+
+};
+
+string sum_no(string a, string b)
 {
   string sum = "";
 
-  int l1 = a.size(); // get length of a
-  int l2 = b.size(); // get lenght of b
+  int line1 = a.size(); // get length of a
+  int line2 = b.size(); // get lenght of b
 
-  reverse(a.begin(),a.end()); // reverse a now 219
-  reverse(b.begin(),b.end()); // reverse b now 029
+  reverse(a.begin(),a.end()); // reverse a
+  reverse(b.begin(),b.end()); // reverse b
 
   int i = 0 , j = 0 , carry = 0;
 
-  // cout << "l1: " << l1 << endl;
-  // cout << "l2: " << l2 << endl; 
-
-  while(i < l1 || j < l2) // start i from a and j from b
+  while(i < line1 || j < line2) // start i from a and j from b
   {
-    int ai, bj;
+    int ai, bj; 
 
-    if(i < l1)
+    if(i < line1)
       ai = a[i] - '0'; // get a[i];
     else
-      ai = 0; // if i is greater than l1 set it equsl to 0
+      ai = 0; // if i is greater than line1 set it equal to 0
 
-    if(j < l2)
+    if(j < line2)
       bj = b[j] - '0'; // get b[j]
     else
-      bj = 0; // if j is greater than l2 set it equal to 0
+      bj = 0; // if j is greater than line2 set it equal to 0
 
     int s = carry + ai + bj;
 
-    carry = s/10; // get the sum it any index
+    carry = s/10; // get the sum at any index
 
     s %= 10; // get carry
 
@@ -57,52 +61,48 @@ int main()
   freopen("nums.txt", "r", stdin);
 
   int count = 100;
-  string sum = "";
-  string t;
+  string answer = "";
+  string sum;
 
   while(count--)
   {
-    cin >> t;
-
-    // cout << count << " " << t << endl;
-
-    sum = sum_no(sum,t);
+    cin >> sum;    // FIX THIS!!!
+    cout << sum << endl;
+    answer = sum_no(answer,sum);
   }
 
-  cout << sum << endl;
-  cout << sum.substr(0,10) << endl;
-
-  // get length of string sum
-	int sl = sum.length();
-
-  cout << "length: " << sl << endl;
+  // get length of string answer
+	int sl = answer.length();
 
 	int j = sl, i; 
-  
-  // int answer = 0;
 
 	// traverse the string in reverse
-	for (i = 0; sum[i] != '\0'; i++)
+	for (i = 0; answer[i] != '\0'; i++)
 	{
 		j--;
 		// subtract string[i] by 48 to convert it to int
 		// the character 1 in ascii is 48 in decimal
-		array[j] = (sum[i] - 48);
+		array[j] = (answer[i] - 48);
 	}
 
-	// for (i = 0; i < sl; i++)
-	// {
-	// 	cout << array[i] << "";
-	// 	// answer += array[i]; // answer of array
-	// }
+  // the answer
+  cout << "The sum is: ";
 
-  for (i = sl - 2; i >= 0; i--)
+  for (i = sl - 1; i >= 0; i--)
 	{
 		cout << array[i] << "";
 	}
 
-	// // print answer of array
-	// cout << "\nSum of array is = " << answer << endl;
+  cout << endl;
+
+  // the first ten digits of the answer
+  cout << "The first ten digits of the sum is: ";
+
+  for (i = sl - 1; i >= sl - 10; i--)
+	{
+		cout << array[i] << "";
+	}
+
   cout << endl;
 
   return 0;

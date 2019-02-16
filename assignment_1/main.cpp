@@ -4,6 +4,8 @@
 
 using namespace std;
 
+void add(int a[], int size, int b[], int size2);
+
 int main()
 {
 	int array[55] = { 0 };
