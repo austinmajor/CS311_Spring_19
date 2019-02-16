@@ -1,112 +1,81 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
-string add(string, string);
-void print(string);
+void add(int a[], int size, int b[], int size2);
 
-void print(string a)
+int main()
 {
-  int array[55] = { 0 };
+	int array[55] = { 0 };
 
-  string answer = a;
+	ifstream inputFile;
+	inputFile.open("num1.txt");
 
- // get length of string answer
-	int sl = answer.length();
+	if (!inputFile)
+	{
+		cout << "Error finding input file!" << endl;
+		system("pause");
+		exit(-1);
+	}
 
-	int j = sl, i; 
+	string str;
+	while (!inputFile.eof())
+	{
+		getline(inputFile, str);
+	}
+
+	cout << str << endl;
+
+	// get length of string str
+	int sl = str.length();
+
+	int j = sl, i, answer = 0;
 
 	// traverse the string in reverse
-	for (i = 0; answer[i] != '\0'; i++)
+	for (i = 0; str[i] != '\0'; i++)
 	{
 		j--;
 		// subtract string[i] by 48 to convert it to int
 		// the character 1 in ascii is 48 in decimal
-		array[j] = (answer[i] - 48);
+		array[j] = (str[i] - 48);
 	}
 
-  // the answer
-  cout << "The sum is: ";
-
-  for (i = sl - 1; i >= 0; i--)
+	for (i = 0; i < sl; i++)
 	{
 		cout << array[i] << "";
+		answer += array[i]; // answer of array
 	}
 
-  cout << endl;
+	// print answer of array
+	cout << "\nSum of array is = " << answer << endl;
 
-  // the first ten digits of the answer
-  cout << "The first ten digits of the sum is: ";
-
-  for (i = sl - 1; i >= sl - 10; i--)
-	{
-		cout << array[i] << "";
-	}
-
-  cout << endl;
-
+	return 0;
 }
 
-string add(string a, string b)
-{
-  string sum = "";
+// #include <iostream>
+// #include <string>
+// #include <vector>
+// #include <cstdlib>
+// #include <fstream>
+// #include <numeric>
 
-  int line1 = a.size(); // get length of a
-  int line2 = b.size(); // get lenght of b
+// using namespace std;
 
-  reverse(a.begin(),a.end()); // reverse a
-  reverse(b.begin(),b.end()); // reverse b
-
-  int i = 0 , j = 0 , carry = 0;
-
-  while(i < line1 || j < line2) // start i from a and j from b
-  {
-    int ai, bj; 
-
-    if(i < line1)
-      ai = a[i] - '0'; // get a[i];
-    else
-      ai = 0; // if i is greater than line1 set it equal to 0
-
-    if(j < line2)
-      bj = b[j] - '0'; // get b[j]
-    else
-      bj = 0; // if j is greater than line2 set it equal to 0
-
-    int s = carry + ai + bj;
-
-    carry = s/10; // get the sum at any index
-
-    s %= 10; // get carry
-
-    sum = sum + to_string(s); // convert to string and add it to final sum
-
-    i++ , j++; // increase i & j
-  }
-
-  if(carry > 0) // if carrry is greater than 0 add it to sum
-    sum = sum + to_string(carry);
-    reverse(sum.begin(),sum.end()); // reverse the sum
-
-  return sum; // return sum
-}
-
-int main()
-{
-  freopen("nums.txt", "r", stdin);
-
-  int count = 100;
-  string answer = "";
-  string sum;
-
-  while(count--)
-  {
-    cin >> sum;
-    answer = add(answer,sum);
-  }
-
-  print(answer);
-
-  return 0;
-}
+// int main() {
+//     const string file = "nums.txt";
+//     ifstream in(file.c_str());
+//     if (!in) {
+//         cout << endl << "Error reading " << file << endl;
+//         exit(EXIT_FAILURE);
+//     }
+//     vector<string> nums;
+//     for (string s; getline(in,s); ) {
+//         nums.push_back(s);
+//     }
+//     cout << endl;
+//     for (size_t i = 0; i < nums.size(); i++) {
+//         cout << nums.at(i) << endl;
+//     }
+// }
