@@ -1,0 +1,48 @@
+Assignment 2
+Rock-Scissor-Paper & Tic-Tac-Toe
+
+R-S-P Requirement: 
+- write one program that mimics the Rock-Scissor-Paper game. This program will ask user to enter an input (out of R-S-P), and the computer will randomly pick one and print out the result (user wins / computer wins). 
+- User's input along with computer's random pick will be encoded in the following format:
+-- user's rock: 	10
+-- user's scissor: 	20
+-- user's paper: 	30
+-- comp's rock:		1
+-- comp's scissor: 	2
+-- comp's paper: 	3
+Then add user's input and computer's pick toghter to for a summation, and use switch statement over the summation to tell the result. For example, 12 (10 + 2: u's rock and c's scissor, user wins), 33 (30 + 3: u's paper and c's paper, draw). 
+
+T-T-T Requirement: 
+- write one program that uses two dimensional array to allow two players to play tic-tac-toe. The program asks for moves alternately from player X and player O to enter a number (1 - 9) they wish to makr to play the game.The program displays the game positions as follows: 
+1 2 3
+4 5 6
+7 8 9
+After each move, the program displays the changed board, for example: 
+X X O
+4 5 6
+O 8 9
+- the program should have following functions: 
+-- a function to take in user's input. 
+-- a function to print out the board and move. 
+-- a function to tell if game is over. 
+-- a function to tell who wins (or draw.)
+
+
+Grading
+- program 1: 40 points; program 2: 60 points. 
+- no explanation required.  (we will do so on assignment 3).
+- in each program: 
+-- compilable and meaningful attemps: 30%
+-- functionality: 60%
+-- comment & indentation: 10%
+-- using the required file name: 20% 
+
+File name: 
+- rsp.cpp for the first program
+- ttt.cpp for the second program
+
+Submission:
+- due: feb 22, 11:59pm
+- please submit through handin program.
+- for morning session: ~cs311a/bin/handin 2 rsp.cpp ttt.cpp
+- for evening session: ~cs311b/bin/handin 2 rsp.cpp ttt.cpp
