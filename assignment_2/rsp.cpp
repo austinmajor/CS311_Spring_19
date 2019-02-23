@@ -17,7 +17,7 @@ int main()
   string user_selection;
   int user_encode;
 
-  // collects user input and encodes
+  // Collects user input and encodes
   cout << "Enter a letter: r(rock), p(paper), or s(scissor)." << endl;
   cin >> user_selection;
 
@@ -27,15 +27,16 @@ int main()
     user_encode = 2;
   else if(user_selection == "p")
     user_encode = 3;
-  else 
+  else
     cout << "Invalid character entered, please Draw!" << endl;
 
-  // computer random integer based on time
+  // Computer random integer based on time
   srand((int)time(0));
   int random_integer = ((1 + (rand() % 3)) * 10);
   int sum = random_integer + user_encode;
 
   /*
+  * Supplies a case (sum) based upon the encoding below
   * Encoding:
   * User's rock: 	10
   * User's scissor: 	20
@@ -44,7 +45,6 @@ int main()
   * Comp's scissor: 	2
   * Comp's paper: 	3
   */
-
   switch (sum)
   {
     case 11 :
