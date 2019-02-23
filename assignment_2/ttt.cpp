@@ -10,16 +10,17 @@
 using namespace std;
 
 /*
-* a function to take in user's input.
-* a function to print out the board and move.
-* a function to tell if game is over.
-* a function to tell who wins (or draw.)
+* SCOPE:
+* 1) a function to take in user's input.
+* 2) a function to print out the board and move.
+* 3) a function to tell if game is over.
+* 4) a function to tell who wins (or draw.)
 */
 
 void input(char array[][3], char player, char current_move);
 void print(char array[][3], int size);
 //void gameOver();
-//void winner();
+//void checkWinner();
 
 char board[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
 char player_x = 'X', player_o = 'O';
@@ -41,14 +42,28 @@ int main()
     else
       current_player = player_x;
   }
+
+  // while(/* !gameOver() */ true){
+  //   input(board, current_player, current_move);
+  //   print(board, 3);
+
+  //   //Switch current player for next move
+  //   if (current_player == player_x)
+  //     current_player = player_o;
+  //   else
+  //     current_player = player_x;
+  // }
+
   return 0;
 }
 
 void input(char array[][3], char player, char current_move)
 {
-  cout << "Your move: " << "Player " << player << " (1-9): ";
+  cout << "Your move " << "player " << player << " : ";
   cin >> current_move;
   cout << endl;
+
+  cout << "AM: " << array[0][current_move - '1'] << endl;
 
   if (current_move > '0' && current_move <= '9')
     array[0][current_move - '1'] = player;
@@ -71,12 +86,20 @@ void print(char array[][3], int size)
   cout << endl;
 }
 
-// bool gameOver(char array[][3], int size)
-// {
-//   return winner(array[][3], size) == 'X' || winner(array[][3], size) == 'O' || winner(array[][3], size) =='d';
-// }
+// bool gameOver(void checkWinner(), char array[][3], int size)
+bool gameOver()
+{
+  return true;
+  // return checkWinner(array[][3], size) == 'X' || checkWinner(array[][3], size) == 'O' || checkWinner(array[][3], size) =='d';
+}
 
-// void winner()
-// {
-//   //winner is..
-// }
+void checkcheckWinner(char array[][3], int size)
+{
+  //checkWinner is..
+    /*
+  * 8 solutions
+  * [0][0], [0][1], [0][2]
+  * [1][0], [1][1], [1][2]
+  * [2][0], [2][1], [2][2]
+  */
+}
