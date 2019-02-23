@@ -72,7 +72,7 @@ int main()
     case 33 :
       cout << "User: Paper, Computer: Paper, Draw!" << endl;
     default:
-      cout << "Invalid characters, please Draw!" << endl;
+      cout << "Invalid characters, Try Again!" << endl;
       break;
   }
 
