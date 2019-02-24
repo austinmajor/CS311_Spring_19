@@ -10,31 +10,33 @@
 using namespace std;
 
 /*
-* SCOPE:
+* FUNCTION DECLARATION:
 * 1) a function to take in user's input.
 * 2) a function to print out the board and move.
-* 3) a function to tell if game is over.
-* 4) a function to tell who wins (or draw.)
+* 3) a function to tell who wins (or draw.)
+* 4) a function to tell if game is over.
 */
 
 void input(char array[][3], char player, char current_move);
-void print(char array[][3], int size);
-//void gameOver();
-//void checkWinner();
+void print(char array[][3], int win);
+void checkWinner(char array[][3]);
+bool gameOver(int win);
 
 char board[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
 char player_x = 'X', player_o = 'O';
 char current_move = '0';
 char current_player = player_x;
+int win = 0;
 
 int main()
 {
-  print(board, 3);
+  print(board, win);
 
-  for (int move = 0; move < 9; move++)
+  while (!gameOver(win))
   {
     input(board, current_player, current_move);
-    print(board, 3);
+    checkWinner(board);
+    print(board, win);
 
     //Switch current player for next move
     if (current_player == player_x)
@@ -43,36 +45,26 @@ int main()
       current_player = player_x;
   }
 
-  // while(/* !gameOver() */ true){
-  //   input(board, current_player, current_move);
-  //   print(board, 3);
-
-  //   //Switch current player for next move
-  //   if (current_player == player_x)
-  //     current_player = player_o;
-  //   else
-  //     current_player = player_x;
-  // }
-
   return 0;
 }
 
 void input(char array[][3], char player, char current_move)
 {
-  cout << "Your move " << "player " << player << " : ";
+  cout << "Your move "
+       << "player " << player << " : ";
   cin >> current_move;
   cout << endl;
-
-  cout << "AM: " << array[0][current_move - '1'] << endl;
 
   if (current_move > '0' && current_move <= '9')
     array[0][current_move - '1'] = player;
 }
 
-void print(char array[][3], int size)
+void print(char array[][3], int win)
 {
+  int size = 3;
   cout << "*** TIC-TAC-TOE ***" << endl;
-  cout << "Pick a unchosen number between (1-9): " << endl << endl;
+  cout << "Pick a unchosen number between (1-9): " << endl
+       << endl;
 
   for (int x = 0; x < size; x++)
   {
@@ -83,23 +75,61 @@ void print(char array[][3], int size)
     }
     cout << endl;
   }
+
   cout << endl;
+
+  if (win == 1)
+    cout << "X WINS, GAME OVER!" << endl;
+  else if (win == 2)
+    cout << "Y WINS, GAME OVER!" << endl;
 }
 
-// bool gameOver(void checkWinner(), char array[][3], int size)
-bool gameOver()
+void checkWinner(char array[][3])
 {
-  return true;
-  // return checkWinner(array[][3], size) == 'X' || checkWinner(array[][3], size) == 'O' || checkWinner(array[][3], size) =='d';
+  int w = 1;
+  char d = player_x;
+
+  for (int p = 1; p <= 2; p++)
+  {
+
+    if (p == 2)
+    {
+      d = player_o;
+      w = 2;
+    }
+
+    for (int g = 0; g < 3; g++)
+    {
+      if (array[0][g] == d && array[1][g] == d && array[2][g] == d)
+        win = w;
+    }
+
+    for (int t = 0; t < 3; t++)
+    {
+      if (array[t][0] == d && array[t][1] == d && array[t][2] == d)
+        win = w;
+    }
+
+    if (array[0][0] == d && array[1][1] == d && array[2][2] == d)
+      win = w;
+
+    if (array[2][0] == d && array[1][1] == d && array[0][2] == d)
+      win = w;
+  }
 }
 
-void checkcheckWinner(char array[][3], int size)
+bool gameOver(int win)
 {
-  //checkWinner is..
-    /*
-  * 8 solutions
-  * [0][0], [0][1], [0][2]
-  * [1][0], [1][1], [1][2]
-  * [2][0], [2][1], [2][2]
-  */
+  switch (win)
+  {
+  case 1:
+    return true;
+    break;
+  case 2:
+    return true;
+    break;
+  default:
+    return false;
+    break;
+  }
 }
