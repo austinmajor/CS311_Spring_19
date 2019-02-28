@@ -14,7 +14,7 @@ void printResult();
 int num;
 int busts = 0;
 
-//picks a random card
+//picks a random number for a index in the array cardScore
 int pickRandomCard()
 {
   return rand() % ((12 + 1));
@@ -30,13 +30,12 @@ bool checkGameStatus(int score)
 int simulateOneGame()
 {
   int score = 0;
-  int cardScore[13] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
+  int cardScore[13] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10}; //jack, queen, king = 10
 
   while (!checkGameStatus(score))
   {
     int temp = cardScore[pickRandomCard()];
     bool hasAce = false;
-    cout << "Score: " << score << endl;
 
     if (score >= 17)
       break;
@@ -57,15 +56,11 @@ int simulateOneGame()
 //simulate game num times
 void simulate()
 {
-  int holds = 0;
-
   for (int i = 0; i < num; i++)
   {
     int score = simulateOneGame();
     if (score >= 22)
-      busts += 1;
-    else
-      holds += 1;
+      busts ++;
   }
 }
 
