@@ -3,23 +3,15 @@
 
 using namespace std;
 
-/*
-* write a function that picks/generates the next card.
-* write a function to tell if the dealer is busted or not.
-* write a function to simulate the game for n times, where n is specified by user.
-*/
-
 int pickRandomCard();
 bool checkGameStatus(int);
 int simulateOneGame();
-
 void simulate();
-
 void printIntro();
 void getInputs();
 void printResult();
 
-int n;
+int num;
 int busts = 0;
 
 //picks a random card
@@ -34,37 +26,40 @@ bool checkGameStatus(int score)
   return score >= 22 || score >= 17;
 }
 
+//simulates one game
 int simulateOneGame()
 {
   int score = 0;
-  int cardScore[13] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11};
+  int cardScore[13] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
 
-  while (checkGameStatus(score) == false)
+  while (!checkGameStatus(score))
   {
     int temp = cardScore[pickRandomCard()];
+    bool hasAce = false;
+    cout << "Score: " << score << endl;
 
     if (score >= 17)
       break;
 
-    if (temp != 11)
-    {
+    if (temp == 1)
+      hasAce = true;
+
+    if (!hasAce)
       score += temp;
-    }
-    else if (temp == 11 && (score >= 6 && score <= 10))
+
+    if (hasAce && (score <= 10))
       score += 11;
-    else
-      score += 1;
   }
 
   return score;
 }
 
-//simulate game n times.
+//simulate game num times
 void simulate()
 {
   int holds = 0;
 
-  for (int i = 0; i < n; i++)
+  for (int i = 0; i < num; i++)
   {
     int score = simulateOneGame();
     if (score >= 22)
@@ -74,24 +69,27 @@ void simulate()
   }
 }
 
+//prints the intro
 void printIntro()
 {
-  cout << "John Zelle's Blackjack Game" << endl;
+  cout << "*** John Zelle's Blackjack Game ***" << endl;
   cout << "How many games to simulate: ";
 }
 
+//collects inputs from the user
 void getInputs()
 {
-  cin >> n;
+  cin >> num;
   cout << endl;
 }
 
+//prints the final result
 void printResult()
 {
-  cout << "Total # of games: " << n << endl;
+  cout << "Total # of games: " << num << endl;
   cout << "User Wins: " << busts << endl;
-  cout << "Dealer Wins: " << n - busts << endl;
-  cout << "Probability Dealer will bust: " << (float)busts / n << endl;
+  cout << "Dealer Wins: " << num - busts << endl;
+  cout << "Probability Dealer will bust: " << (float)busts / num << endl;
 }
 
 int main()
