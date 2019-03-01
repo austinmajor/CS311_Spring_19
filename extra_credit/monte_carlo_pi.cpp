@@ -1,7 +1,7 @@
 /* Estimation of Pi using Monte Carlo Simulation
 *
 *  Monte Carlo Definition:
-*  Class of computational algorithms that rely on repeated random sampling to obtain numerical results
+*  Algorithm that relys on repeated random sampling to obtain numerical results
 *
 *  The Algorithm:
 *  1) Generate random point x.
@@ -77,8 +77,8 @@ void print()
   cout << "Y: " << y << endl;
   cout << "Circle Hits: " << circle_hits << endl;
   cout << "Square Hits: " << square_hits << endl;
-  cout << "C Estimation of pi: " << pi << endl;
-  cout << "Actual value of pi: 3.14159265358..." << endl;
+  cout << "MC Estimation of pi: " << pi << endl;
+  cout << "Actual value of pi:  3.14159265358..." << endl;
   cout << "************************************************" << endl;
 }
 
