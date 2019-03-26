@@ -17,7 +17,7 @@
           x=3x+1
   4) OUTPUT each step
 
-  Example:
+  TEST CASE:
     INPUT: 5
     OUTPUT: 5,16,8,4,2,1
 */
