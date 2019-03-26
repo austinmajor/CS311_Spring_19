@@ -14,25 +14,6 @@ void get_no_of_quiz(int&);
 void get_data_base(int&, int&, int**);
 void get_print_results(int&, int&, int**);
 
-int main()
-{
-  int no_of_student, no_of_quiz;
-  get_no_of_student(no_of_student);
-  get_no_of_quiz(no_of_quiz);
-
-  // 2D Array Declaration - not sure how to decouple this logic
-  int **array;
-  array = new int *[no_of_student];
-  for(int i = 0; i < no_of_quiz; i++) 
-  {
-    array[i] = new int[no_of_quiz];
-  }
-  get_data_base(no_of_student, no_of_quiz, array);
-  get_print_results(no_of_student, no_of_quiz, array);
-
-  return 0;
-}
-
 void get_no_of_student(int& n)
 {
   while (true)
@@ -83,7 +64,7 @@ void get_data_base(int& n, int& q, int **a)
       cout << "Enter Score " << j + 1 <<" : ";
       cin >> a[i][j];
 
-      if (a[i][j] == -1) 
+      if (a[i][j] == -1)
       {
         break;
       }
@@ -99,7 +80,7 @@ void get_print_results(int& n, int& q, int **a)
   for (int i = 0; i < n; i++)
   {
     total = 0;
-    count = 0;  
+    count = 0;
 
     for (int j = 0; j < q; j++)
     {
@@ -113,4 +94,23 @@ void get_print_results(int& n, int& q, int **a)
     average = total / count;
     cout << "Average Total Score of Student # " << i + 1 << " : " << average << endl;
   }
+}
+
+int main()
+{
+  int no_of_student, no_of_quiz;
+  get_no_of_student(no_of_student);
+  get_no_of_quiz(no_of_quiz);
+
+  // 2D Array Declaration - not sure how to decouple this logic
+  int **array;
+  array = new int *[no_of_student];
+  for(int i = 0; i < no_of_quiz; i++)
+  {
+    array[i] = new int[no_of_quiz];
+  }
+  get_data_base(no_of_student, no_of_quiz, array);
+  get_print_results(no_of_student, no_of_quiz, array);
+
+  return 0;
 }
