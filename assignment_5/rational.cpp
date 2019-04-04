@@ -21,7 +21,6 @@ public:
   void sub(RationalNumber);
   void mul(RationalNumber);
   void div(RationalNumber);
-
   bool less(RationalNumber);
 
   // Getters
@@ -115,12 +114,12 @@ void RationalNumber::div(RationalNumber rn)
     cout << numerator / g;
 }
 
-bool RationalNumber::less(RationalNumber r2)
+bool RationalNumber::less(RationalNumber rn)
 {
   int a = numerator;
   int b = denominator;
-  int c = r2.numerator;
-  int d = r2.denominator;
+  int c = rn.numerator;
+  int d = rn.denominator;
   double n1 = a * d;
   double d1 = b * d;
   double n2 = c * b;
