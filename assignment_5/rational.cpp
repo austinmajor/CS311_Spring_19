@@ -150,12 +150,12 @@ void RationalNumber::setDenominator(int d)
   this->denominator = d;
 }
 
-int RationalNumber::factor(int a, int b)
+int RationalNumber::factor(int n, int d)
 {
-  if ((a % b) == 0)
-    return b;
+  if ((n % d) == 0)
+    return d;
   else
-    return factor(b, a % b);
+    return factor(d, n % d);
 }
 
 int main()
