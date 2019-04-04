@@ -1,34 +1,48 @@
+/*
+* Program: OOP - RATIONAL NUMBER CLASS
+* Author: Austin Major
+* Class: CS311
+* Date: 4/3/19
+*/
+
 #include <iostream>
-#include <string>
-#include <cmath>
+
 using namespace std;
 
 class RationalNumber
 {
 public:
-  RationalNumber(int n);
+  // Constructors
+  RationalNumber(int, int);
+  RationalNumber(int);
 
-  // Initializes the rational number to wholeNumber/1
-  RationalNumber(int m, int n);
+  // Member functions
+  void add(RationalNumber);
+  void sub(RationalNumber);
+  void mul(RationalNumber);
+  void div(RationalNumber);
 
-  bool less(RationalNumber r2);
+  bool less(RationalNumber);
 
-  //Declaring functions
-  void add(RationalNumber rn);
-  void sub(RationalNumber rn);
-  void mul(RationalNumber rn);
-  void div(RationalNumber rn);
+  // Getters
   int getNumerator();
   int getDenominator();
-  void setNumerator(int numer);
-  void setDenominator(int denom);
+
+  // Setters
+  void setNumerator(int);
+  void setDenominator(int);
 
 private:
-  // Declaring variables
-  int numerator;   // the numerator of the number
-  int denominator; // the denominator of the number
-  int factor(int a, int b);
+  int numerator;
+  int denominator;
+  int factor(int, int);
 };
+
+RationalNumber::RationalNumber(int n, int d)
+{
+  this->numerator = n;
+  this->denominator = d;
+}
 
 RationalNumber::RationalNumber(int n)
 {
@@ -36,19 +50,69 @@ RationalNumber::RationalNumber(int n)
   this->denominator = 1;
 }
 
-// Initializes the rational number to wholeNumber/1
-RationalNumber::RationalNumber(int m, int n)
+void RationalNumber::add(RationalNumber rn)
 {
-  if (denominator < 0)
-  {
-    this->numerator = -(m);
-    this->denominator = -(n);
-  }
+  int a, b, c, d;
+  a = getNumerator();
+  b = getDenominator();
+  c = rn.getNumerator();
+  d = rn.getDenominator();
+  int numerator = (a * d + b * c);
+  int denominator = (b * d);
+
+  int g = factor(numerator, denominator);
+  if (denominator != 1)
+    cout << numerator / g << "/" << denominator / g;
   else
-  {
-    this->numerator = (m);
-    this->denominator = (n);
-  }
+    cout << numerator / g << endl;
+}
+
+void RationalNumber::sub(RationalNumber rn)
+{
+  int a, b, c, d;
+  a = getNumerator();
+  b = getDenominator();
+  c = rn.getNumerator();
+  d = rn.getDenominator();
+  int numerator = (a * d - b * c);
+  int denominator = (b * d);
+  int g = factor(numerator, denominator);
+  if (denominator != 1)
+    cout << numerator / g << "/" << denominator / g;
+  else
+    cout << numerator / g;
+}
+
+void RationalNumber::mul(RationalNumber rn)
+{
+  int a, b, c, d;
+  a = getNumerator();
+  b = getDenominator();
+  c = rn.getNumerator();
+  d = rn.getDenominator();
+  int numerator = (a * c);
+  int denominator = (b * d);
+  int g = factor(numerator, denominator);
+  if (denominator != 1)
+    cout << numerator / g << "/" << denominator / g;
+  else
+    cout << numerator / g;
+}
+
+void RationalNumber::div(RationalNumber rn)
+{
+  int a, b, c, d;
+  a = getNumerator();
+  b = getDenominator();
+  c = rn.getNumerator();
+  d = rn.getDenominator();
+  int numerator = (a * d);
+  int denominator = (c * b);
+  int g = factor(numerator, denominator);
+  if (denominator != 1)
+    cout << numerator / g << "/" << denominator / g;
+  else
+    cout << numerator / g;
 }
 
 bool RationalNumber::less(RationalNumber r2)
@@ -66,147 +130,67 @@ bool RationalNumber::less(RationalNumber r2)
   else
     return false;
 }
+
 int RationalNumber::getNumerator()
 {
   return numerator;
 }
+
 int RationalNumber::getDenominator()
 {
   return denominator;
 }
-void RationalNumber::setNumerator(int numer)
+
+void RationalNumber::setNumerator(int n)
 {
-  this->numerator = numer;
+  this->numerator = n;
 }
-void RationalNumber::setDenominator(int denom)
+
+void RationalNumber::setDenominator(int d)
 {
-  this->denominator = denom;
+  this->denominator = d;
 }
 
 int RationalNumber::factor(int a, int b)
 {
-  // % is modulus which is the remainder of a division
-  // base case
   if ((a % b) == 0)
-  {
     return b;
-  }
-  // recursive case
   else
-  {
     return factor(b, a % b);
-  }
-}
-//This method will add two rational numbers
-void RationalNumber::add(RationalNumber rn)
-{
-  int a, b, c, d;
-  a = getNumerator();
-  b = getDenominator();
-  c = rn.getNumerator();
-  d = rn.getDenominator();
-  int sumnumer = (a * d + b * c);
-  int sumdenom = (b * d);
-
-  int g = factor(sumnumer, sumdenom);
-  if (sumdenom != 1)
-    cout << sumnumer / g << "/" << sumdenom / g;
-  else
-    cout << sumnumer / g;
-}
-//This method will subtract two rational numbers
-void RationalNumber::sub(RationalNumber rn)
-{
-  int a, b, c, d;
-  a = getNumerator();
-  b = getDenominator();
-  c = rn.getNumerator();
-  d = rn.getDenominator();
-  int subnumer = (a * d - b * c);
-  int subdenom = (b * d);
-  int g = factor(subnumer, subdenom);
-  if (subdenom != 1)
-    cout << subnumer / g << "/" << subdenom / g;
-  else
-    cout << subnumer / g;
-}
-//This method will multiply two rational numbers
-void RationalNumber::mul(RationalNumber rn)
-{
-  int a, b, c, d;
-  a = getNumerator();
-  b = getDenominator();
-  c = rn.getNumerator();
-  d = rn.getDenominator();
-  int mulnumer = (a * c);
-  int muldenom = (b * d);
-  int g = factor(mulnumer, muldenom);
-  if (muldenom != 1)
-    cout << mulnumer / g << "/" << muldenom / g;
-  else
-    cout << mulnumer / g;
-}
-//This method will divide two rational numbers
-void RationalNumber::div(RationalNumber rn)
-{
-  int a, b, c, d;
-  a = getNumerator();
-  b = getDenominator();
-  c = rn.getNumerator();
-  d = rn.getDenominator();
-  int divnumer = (a * d);
-  int divdenom = (c * b);
-  int g = factor(divnumer, divdenom);
-  if (divdenom != 1)
-    cout << divnumer / g << "/" << divdenom / g;
-  else
-    cout << divnumer / g;
 }
 
 int main()
 {
-  //Creating the objects to RationalNumber class
-  RationalNumber rn1(1, 6);
-  RationalNumber rn2(2);
+  RationalNumber a(1, 2);
+  RationalNumber b(1, 4);
 
-  //Getting the number entered by the user
-  cout << "First Number:";
-  cout << rn1.getNumerator() << "/" << rn1.getDenominator() << endl;
-  cout << "\nSecond Number:";
-  cout << rn2.getNumerator() << "/" << rn2.getDenominator() << endl;
+  cout << "First Rational Number: ";
+  cout << a.getNumerator() << "/" << a.getDenominator() << endl;
+  cout << "Second Rational Number: ";
+  cout << b.getNumerator() << "/" << b.getDenominator() << endl;
 
-  /* calling the function and displaying
-* the result after adding two rational num bers
-*/
-  cout << "\nAddition :";
-  rn1.add(rn2);
-  /* calling the function and displaying
-* the result after subtracting two rational num bers
-*/
-  cout << "\nSubtraction :";
-  rn1.sub(rn2);
-  /* calling the function and displaying
-* the result after multiplying two rational num bers
-*/
-  cout << "\nMultiplication :";
-  rn1.mul(rn2);
-  /* calling the function and displaying
-* the result after dividing two rational num bers
-*/
-  cout << "\nDivision :";
-  rn1.div(rn2);
+  cout << "Addition: ";
+  a.add(b);
+  cout << endl;
 
-  bool b = rn1.less(rn2);
-  if (b)
-  {
-    cout << "\nRationalNumber#1 is Less than RationalNumber#2" << endl;
-  }
+  cout << "Subtraction: ";
+  a.sub(b);
+  cout << endl;
+
+  cout << "Multiplication: ";
+  a.mul(b);
+  cout << endl;
+
+  cout << "Division: ";
+  a.div(b);
+  cout << endl;
+
+  cout << "Inequality: ";
+  bool x = a.less(b);
+  if (x)
+    cout << a.getNumerator() << "/" << a.getDenominator() << " < " << b.getNumerator() << "/" << b.getDenominator() << endl;
   else
-  {
-    cout << "\nRationalNumber#1 is not Less than RationalNumber#2" << endl;
-  }
+    cout << a.getNumerator() << "/" << a.getDenominator() << " > " << b.getNumerator() << "/" << b.getDenominator() << endl;
 
   return 0;
 }
-
-____________________________

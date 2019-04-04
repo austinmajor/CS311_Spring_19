@@ -1,3 +1,10 @@
+/*
+* Program: Blackjack Game
+* Author: Austin Major
+* Class: CS311
+* Date: 3/13/19
+*/
+
 #include <iostream>
 #include <ctime>
 

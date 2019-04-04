@@ -1,3 +1,10 @@
+/*
+* Program: OOP - Patron
+* Author: Austin Major
+* Class: CS311
+* Date: 3/20/19
+*/
+
 #include <iostream>
 
 using namespace std;
