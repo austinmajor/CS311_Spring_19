@@ -1,0 +1,27 @@
+CS 311 Assignment #5
+Rational number class
+
+Define a class for rational numbers. A rational number is a "ratio-nal" number, composed of two integers with division indicated.
+
+Requirement:
+- two member variables: (int) numerator and (int) denominator.
+- two constructors: one that takes in both numerator and denominator to construct a rational number, and one that takes in only numerator and initialize the denominator as 1.
+- accessor/modifier
+- member functions: add(), sub(), mul(), div(), and less(). Usage: to add rational num b and rational num a, one could call a.add(b); to compare rational num a and rational num b, one could call a.less(b). add(), sub(), mul() and div() should return a rational number.
+- member functon: factor(). This function should be a private function that should be called each time numerator/denominator is set/modified. The purpose of this function is to take the greatest common factor out of numerator/denominator. For example, rational number 2/4 should be stored as 1/2, rational number 3/9 should be stored as 1/3.
+- fully test all public functions inside main().
+
+Grading:
+- compilable and meaningfull attemps: 20%
+- class definition: 20%
+- class implementation: 30%
+- test and main(): 20%
+- comment, indentation and file name: 10%
+
+File name:
+rational.cpp
+
+Submission:
+- due: mar 31, 11:59pm
+- morning session handin command: ~cs311a/bin/handin 5 rational.cpp
+- evening session handin command: ~cs311b/bin/handin 5 rational.cpp
