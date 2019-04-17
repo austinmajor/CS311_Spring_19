@@ -1,0 +1,35 @@
+CS 311 Assignment #7
+Define a class called StringSet that will be used to store a set of strings. Use a vector to store the strings.
+All strings in the set must be unique (i.e., no duplicates).
+
+Requirement:
+- constructor: an empty constructor.
+- constructor: a constructor that takes in a string array (and its size), use the values inside array to initialize the StringSet object.
+- constructor: a constructor that takes in a string vector, use the values inside vector to initialize the StringSet object.
+- member function: void add(string str), which adds str to the set.
+- member function: void remove(string str), which removes str from the set.
+- member function: void clear(), which clears all string sfrom the set.
+- member function: int size(), which returns the count of number of strings in the set.
+- member function: void union(const StringSet& ss), which unions with strings in ss.
+- member function: void intersect(const StringSet& ss), which intersects with strings in ss.
+- member function: void print(), which prints all strings in the set.
+- main(): test all constructors and member functions in main().
+- makefile: provide makefile for your solution
+- separate interface(.h) and implementation(.cpp)
+
+File structures and names:
+- stringset.h: class StringSet interface
+- stringset.cpp: class StringSet implementation
+- test.cpp: contains main() and tests all constructors and member functions.
+- makefile: contains compile instructions for make.
+
+Grading:
+- compilable and meaningfull attemps: 20%
+- StringSet class: 50%
+- test and main(): 20%
+- comment, indentation and file names and makefile: 10%
+
+Submission:
+- due: apr 15, 11:59pm
+- morning session handin command: ~cs311a/bin/handin 7 <your file list goes here>
+- evening session handin command: ~cs311b/bin/handin 7 <your file list goes here>
