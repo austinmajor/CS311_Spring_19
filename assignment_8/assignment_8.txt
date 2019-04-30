@@ -1,0 +1,42 @@
+CS 311 Assignment #8
+Class inheritance and polymorphism: Predator-Prey Simulation.
+
+Simulation:
+- In a world of 20 x 20 grid of cells, there lives two kinds of animals: ant and bug.
+- Each ant/bug takes on cell.
+- Bugs eat ants for food.
+- Time is simulated in time steps.
+- Each animal performs some action every time step.
+- During one time step, all bugs should move before the ants do.
+- Initially, the grid has 5 bugs and 100 ants.
+- Print the grid after each step. Use 'x' to represent bug and 'o' to represent ant.
+- Prompt user to press Enter to move to the next step. To exit: ctrl + c
+
+Requirement:
+- Create a base class: Animal.
+- Derive a class: Ant, as the prey.
+- Derive a class: Bug, as the predator.
+
+Class Ant:
+- Move: every time step, randomly try to move up, down, left, or right. If the neighboring cell in the selected direction is occupied or would move the ant off the grid, then the ant stays in the current cell.
+- Breed: if an ant survives for three times steps, then at the end of the time step(that is, after moving) the ant will breed. This is simulated by creating a new ant in an adjacent cell that is empty. If there is not empty cell available, then no breeding occurs. Once an offspring is produces, the parent ant needs to wait three more time steps for next breed.
+
+Class Bug:
+- Move: if there is an adjacent ant (up, down, left, right) the the bug will move to that cell and eat the ant. Otherwise, the bug wil move according to the same rule as the ant. Bugs only eat ants.
+- Breed: if a bug survives for eight time steps, then at the end of the time step it will spawn off a new bug in the same manner as the ant.
+- Starve: if a bug has not eaten an ant within the last three time steps, then at the end of the third time step it will starve and die. The bug should then be removed from the grid of cells.
+
+File structures and names:
+- animal.h, animal.cpp, ant.h, ant.cpp, bug.h, bug.cpp, sim.h, sim.cpp
+- makefile: contains compile instructions for make.
+
+Grading:
+- compilable and meaningfull attemps: 20%
+- classes: 30%
+- simulation: 40%
+- comment, indentation and file names and makefile: 10%
+
+Submission:
+- due: apr 24, 11:59pm
+- morning session handin command: ~cs311a/bin/handin 8 <your file list goes here>
+- evening session handin command: ~cs311b/bin/handin 8 <your file list goes here>
