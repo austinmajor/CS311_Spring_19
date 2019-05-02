@@ -1,191 +1,193 @@
-#include <iostream>
-#include <time.h>
-#include <random>
 #include "sim.h"
 
-using namespace std;
-
-void sim::initGrid()
+World::World(unsigned int seed)
 {
-  for (int i = 0; i < 20; i++)
+  srand(seed);
+
+  for (int i = 0; i < WORLDSIZE; i++)
   {
-    for (int j = 0; j < 20; j++)
+    for (int j = 0; j < WORLDSIZE; j++)
     {
-      Animal a;
-      grid[i][j] = a;
+      grid[i][j] = NULL;
     }
   }
-  srand(time(0));
-  int row, col;
-  //Insert bug
-  for (int i = 0; i < bugCount;)
+
+  createOrganisms(ANT, INITIAL_ANTS);
+
+  createOrganisms(BUG, INITIAL_BUGS);
+}
+
+World::~World()
+{
+  for (int i = 0; i < WORLDSIZE; i++)
   {
-    row = rand() % 20;
-    col = rand() % 20;
-    Animal ani = grid[row][col];
-    if (ani.getVal() == ' ')
+    for (int j = 0; j < WORLDSIZE; j++)
     {
-      Bug b;
-      grid[row][col] = b;
-      grid[row][col].setVal('x');
-      i++;
-    }
-  }
-  //Insert ants
-  for (int i = 0; i < antCount;)
-  {
-    row = rand() % 20;
-    col = rand() % 20;
-    Animal ani = grid[row][col];
-    if (ani.getVal() == ' ')
-    {
-      Ant a;
-      grid[row][col] = a;
-      grid[row][col].setVal('o');
-      i++;
+      if (grid[i][j] != NULL)
+      {
+        delete grid[i][j];
+      }
     }
   }
 }
 
-void sim::printGrid()
+Organism *World::getAt(int x, int y) const
 {
-  for (int i = 0; i < 20; i++)
+  if ((x >= 0) && (x < WORLDSIZE) && (y >= 0) && (y < WORLDSIZE))
   {
-    for (int j = 0; j < 20; j++)
+    return grid[x][y];
+  }
+  else
+  {
+    return NULL;
+  }
+}
+
+void World::setAt(int x, int y, Organism *org)
+{
+  if ((x >= 0) && (x < WORLDSIZE) && (y >= 0) && (y < WORLDSIZE))
+  {
+    grid[x][y] = org;
+  }
+}
+
+void World::display() const
+{
+  int numAnts = 0;
+  int numBugs = 0;
+  cout << endl
+       << endl;
+  for (int j = 0; j < WORLDSIZE; j++)
+  {
+    for (int i = 0; i < WORLDSIZE; i++)
     {
-      cout << grid[i][j].getVal() << " ";
+      if (grid[i][j] == NULL)
+      {
+        cout << ".";
+      }
+      else
+      {
+        if (grid[i][j]->getType() == ANT)
+        {
+          numAnts++;
+        }
+        else if (grid[i][j]->getType() == BUG)
+        {
+          numBugs++;
+        }
+        cout << grid[i][j]->representation();
+      }
     }
     cout << endl;
   }
+  cout << "Ants: " << numAnts << " Bugs: " << numBugs << endl;
 }
 
-void sim::step()
+void World::simulateOneStep()
 {
-  srand(time(0));
-  int direction = rand() % 4 + 1;
-  // 1: left 2: right , 3:down, 4:up
-  int row = (direction == 3) ? 1 : -1;
-  int col = (direction == 2) ? 1 : -1;
-  //First move bugs
-  for (int i = 0; i < 20; i++)
-  {
-    for (int j = 0; j < 20; j++)
-    {
-      if (grid[i][j].getVal() == 'x')
-      {
-        if (i + row < 20 && i + row >= 0 && j + col < 20 && j + col >= 0 && grid[i + row][j + col].getVal() != 'x')
-        {
-          grid[i + row][j + col].setSteps(grid[i + row][j + col].getSteps() + 1);
-          if (grid[i + row][j + col].getVal() == '0')
-          {
-            antCount--;
-            grid[i + row][j + col].starve = false;
-          }
-          grid[row][col].setVal(' ');
-          grid[i + row][j + col].setVal('x');
-          if (grid[i + row][j + col].getSteps() >= 3 && grid[i + row][j + col].starve != false)
-            grid[i + row][j + col].setVal(' '); // Starve bug after three steps
-        }
-      }
-    }
-  }
-  //Now move ants
-  for (int i = 0; i < 20; i++)
-  {
-    for (int j = 0; j < 20; j++)
-    {
-      if (grid[i][j].getVal() == 'x')
-      {
-        if (i + row < 20 && i + row >= 0 && j + col < 20 && j + col >= 0 && grid[i + row][j + col].getVal() != 'x' && grid[i + row][j + col].getVal() != 'o')
-        {
-          grid[row][col].setVal(' ');
-          grid[i + row][j + col].setVal('0');
-          grid[i + row][j + col].setSteps(grid[i + row][j + col].getSteps() + 1);
-        }
-      }
-    }
-  }
+  resetOrganisms();
+
+  moveOrganism(BUG);
+
+  moveOrganism(ANT);
+
+  cleanup();
+
+  breedOrganisms();
 }
 
-void sim::breedAnt()
+Position World::randomPosition() const
 {
-  for (int i = 0; i < 20; i++)
+  Position p;
+  p.x = rand() % WORLDSIZE;
+  p.y = rand() % WORLDSIZE;
+  return p;
+}
+
+Move World::randomMove() const
+{
+  return static_cast<Move>(rand() % 4);
+}
+
+void World::createOrganisms(OrganismType orgType, int count)
+{
+  int orgCount = 0;
+  while (orgCount < count)
   {
-    for (int j = 0; j < 20; j++)
+    Position p = randomPosition();
+
+    if (grid[p.x][p.y] == NULL)
     {
-      if (grid[i][j].getVal() == '0')
+      orgCount++;
+      if (orgType == ANT)
       {
-        if (grid[i][j].getSteps() >= 3)
-        {
-          if (i + 1 < 20 && grid[i + 1][j].getVal() == ' ')
-          {
-            grid[i + 1][j].setVal('0');
-          }
-          else if (i - 1 >= 0 && grid[i - 1][j].getVal() == ' ')
-          {
-            grid[i - 1][j].setVal('0');
-          }
-          else if (j + 1 < 20 && grid[i][j + 1].getVal() == ' ')
-          {
-            grid[i][j + 1].setVal('0');
-          }
-          else if (j - 1 >= 0 && grid[i][j - 1].getVal() == ' ')
-          {
-            grid[i][j - 1].setVal('0');
-          }
-          grid[i][j].setSteps(0);
-        }
+        new Ant(this, p.x, p.y);
+      }
+      else if (orgType == BUG)
+      {
+        new Bug(this, p.x, p.y);
       }
     }
   }
 }
 
-void sim::breedBug()
+void World::resetOrganisms()
 {
-  for (int i = 0; i < 20; i++)
+  for (int i = 0; i < WORLDSIZE; i++)
   {
-    for (int j = 0; j < 20; j++)
+    for (int j = 0; j < WORLDSIZE; j++)
     {
-      if (grid[i][j].getVal() == 'x')
+      if (grid[i][j] != NULL)
       {
-        if (grid[i][j].getSteps() >= 8)
+        grid[i][j]->setMoved(false);
+      }
+    }
+  }
+}
+
+void World::moveOrganism(OrganismType aType)
+{
+  for (int i = 0; i < WORLDSIZE; i++)
+  {
+    for (int j = 0; j < WORLDSIZE; j++)
+    {
+      if (grid[i][j] != NULL)
+      {
+        if (grid[i][j]->getType() == aType && !(grid[i][j]->hasMoved()))
         {
-          if (i + 1 < 20 && grid[i + 1][j].getVal() == ' ')
-          {
-            grid[i + 1][j].setVal('x');
-          }
-          else if (i - 1 >= 0 && grid[i - 1][j].getVal() == ' ')
-          {
-            grid[i - 1][j].setVal('x');
-          }
-          else if (j + 1 < 20 && grid[i][j + 1].getVal() == ' ')
-          {
-            grid[i][j + 1].setVal('x');
-          }
-          else if (j - 1 >= 0 && grid[i][j - 1].getVal() == ' ')
-          {
-            grid[i][j - 1].setVal('x');
-          }
-          grid[i][j].setSteps(0);
+          grid[i][j]->move();
         }
       }
     }
   }
 }
 
-int main()
+void World::cleanup()
 {
-  sim s;
-  s.initGrid();
-  int i = 0;
-  while (1)
+  for (int i = 0; i < WORLDSIZE; i++)
   {
-    s.printGrid();
-    getchar();
-    s.step();
-    cout << "After step:" << i++ << endl;
-    s.breedAnt();
-    s.breedBug();
+    for (int j = 0; j < WORLDSIZE; j++)
+    {
+
+      if ((grid[i][j] != NULL) && grid[i][j]->isDead())
+      {
+        delete grid[i][j];
+        grid[i][j] = NULL;
+      }
+    }
   }
-  return 0;
+}
+
+void World::breedOrganisms()
+{
+  for (int i = 0; i < WORLDSIZE; i++)
+  {
+    for (int j = 0; j < WORLDSIZE; j++)
+    {
+      if (grid[i][j] != NULL)
+      {
+        grid[i][j]->breed();
+      }
+    }
+  }
 }

@@ -1,13 +1,30 @@
 #ifndef BUG_H
 #define BUG_H
-#pragma once
-#include "Animal.h"
 
-class Bug : public Animal
+#include "animal.h"
+#include "sim.h"
+
+class Bug : public Organism
 {
+private:
+  void generateOffspring(int whereX, int whereY);
+  int death_tik;
 public:
-  char val = 'x';
-  Bug();
+  Bug(World *aWorld, int xcoord, int ycoord);
+
+  void move();
+
+  void breed();
+
+  OrganismType getType() const;
+
+  char representation() const;
+
+  int size() const;
+
+  bool isDead() const;
+
+  bool in_range(int xx, int yy);
 };
 
-#endif // BUG_H
+#endif
