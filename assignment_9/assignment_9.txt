@@ -1,0 +1,22 @@
+CS 311 Assignment #9
+Template function
+
+Requirement:
+Write a template for a function that has parameters for a list of items and a possible item on the list.
+If the item is on the list, then the function returns the possible item on the list.
+If the item is not on the list, the function returns -1.
+Write your own test for this function.
+
+File structures and names:
+- template_list.cpp
+- makefile: contains compile instructions for make.
+
+Grading:
+- compilable and meaningfull attemps: 20%
+- functionality: 70%
+- comment, indentation and file names and makefile: 10%
+
+Submission:
+- due: May 6, 11:59pm
+- morning session handin command: ~cs311a/bin/handin 9 <your file list goes here>
+- evening session handin command: ~cs311b/bin/handin 9 <your file list goes here>
